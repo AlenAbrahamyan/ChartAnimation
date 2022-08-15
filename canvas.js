@@ -1,5 +1,5 @@
 const lighting = () =>  Math.floor(Math.random() * 255)
-////
+///////
 const generateRandomColor = () => `rgb(${lighting()}, ${lighting()}, ${lighting()})`
 
 const countDistance = (a,b) => Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)

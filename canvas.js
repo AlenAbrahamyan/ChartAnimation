@@ -1,7 +1,6 @@
 const lighting = () =>  Math.floor(Math.random() * 255)
-
 const generateRandomColor = () => `rgb(${lighting()}, ${lighting()}, ${lighting()})`
-
+const generateRandomColor2 = () => `#${Math.floor(Math.random() * 600000)}`
 const countDistance = (a,b) => Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
 
 let ALPHA = 0
@@ -19,10 +18,10 @@ const c = canvas.getContext('2d')
 c.font = "40px Arial";
 
 const degree = Math.PI/180,
-percent = 3.6 * degree,
-axis = {x:300, y:300}, 
-radius = 150,
-percentages = [35,15,20,10,15,5],
+PERCENT = 3.6 * degree,
+axis = {x:400, y:400}, 
+radius = 200,
+percentages = [25,15,20,30,10],
 chartItems = []
 
 
@@ -35,8 +34,8 @@ const getChartItems = () => {
         chartItems.push({
             start: charItemStart,
             end: charItemStart + percent,
-            x:axis.x+Math.random() * 400,
-            y:axis.y+Math.random() * 400,
+            x:axis.x + 50*Math.cos((charItemStart+percent/2)* PERCENT),
+            y:axis.y + 50*Math.sin((charItemStart+percent/2)* PERCENT),
             color: generateRandomColor()
         })
     })
@@ -53,7 +52,7 @@ const drawChart = () => {
         const y = interpolation(chartItem.y, axis.y)
 
         c.beginPath()
-        c.arc(x, y, radius, chartItem.start*percent, chartItem.end*percent)
+        c.arc(x, y, radius, chartItem.start*PERCENT, chartItem.end*PERCENT)
         c.fillStyle = chartItem.color
         c.lineTo(x, y)
         c.fill()
@@ -97,7 +96,7 @@ canvas.addEventListener('mousemove', (e)=>{
 
     chartItems.forEach((chartItem)=>{
         if(angle/3.6>chartItem.start && angle/3.6<chartItem.end){
-            text = chartItem.end-chartItem.start
+            text = chartItem.end-chartItem.start + '%'
         }
     })
     }else{
